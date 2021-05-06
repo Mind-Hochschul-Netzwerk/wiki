@@ -1,0 +1,24 @@
+version: "3.5"
+services:
+  wiki:
+    volumes:
+      - "${VOLUMES_DIR}/images:/var/www/html/images"
+      - "./app/loginGateKeeper.php:/var/www/html/loginGateKeeper.php"
+      - "./app/LocalSettings.php:/var/www/html/LocalSettings.php"
+
+  wiki-adminer:
+    image: adminer
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.wiki-adminer.entrypoints=websecure
+      - traefik.http.routers.wiki-adminer.rule=Host(`wiki-adminer.${DOMAINNAME}`)
+      - traefik.http.routers.wiki-adminer.tls=true
+      - traefik.http.routers.wiki-adminer.tls.certresolver=myresolver
+      - traefik.http.routers.wiki-adminer.middlewares=secheader@file
+    depends_on:
+      - wiki-database
+    networks:
+      - traefik
+      - wiki

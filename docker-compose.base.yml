@@ -1,0 +1,60 @@
+version: "3.5"
+services:
+  wiki:
+    image: mindhochschulnetzwerk/wiki
+    restart: unless-stopped
+    volumes:
+      - "${VOLUMES_DIR}/images:/var/www/html/images"
+    environment:
+      - DOMAINNAME
+      - MYSQL_HOST=wiki-database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE=database
+      - LDAP_HOST=ldap
+      - LDAP_BIND_DN=cn=admin,dc=mind-hochschul-netzwerk,dc=de
+      - LDAP_BIND_PASSWORD
+      - SMTP_HOST
+      - SMTP_SECURE
+      - SMTP_PORT
+      - SMTP_USER
+      - SMTP_PASSWORD
+      - SECRET_KEY
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.wiki.entrypoints=websecure
+      - traefik.http.routers.wiki.rule=Host(`wiki.${DOMAINNAME}`)
+      - traefik.http.routers.wiki.tls=true
+      - traefik.http.routers.wiki.tls.certresolver=myresolver
+      - traefik.http.routers.wiki.middlewares=secheader@file
+    depends_on:
+      - wiki-database
+    networks:
+      - traefik
+      - wiki
+      - ldap
+
+  wiki-database:
+    image: mariadb
+    restart: unless-stopped
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE=database
+      - MYSQL_ROOT_PASSWORD
+    volumes:
+      - "./docker/sql:/docker-entrypoint-initdb.d:ro"
+      - "${VOLUMES_DIR}/mariadb:/var/lib/mysql"
+    networks:
+      - wiki
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+  ldap:
+    name: ldap
+    external: true
+  wiki:
+    name: wiki

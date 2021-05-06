@@ -1,0 +1,4 @@
+#! /bin/sh
+
+sleep 10s
+php /var/www/html/maintenance/update.php

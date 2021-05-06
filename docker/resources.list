@@ -1,0 +1,5 @@
+# Format: $filename $url $sha256sum # $label ($label ist optional)
+# falls die Datei mit dem Namen in ./assets vorhanden ist, wird diese verwendet statt sie herunterzuladen
+
+mediawiki-1.35.1.tar.gz https://releases.wikimedia.org/mediawiki/1.35/mediawiki-1.35.1.tar.gz 8e65a61d4a16ea6f3e60a2828483f8d50047b89f94f1313fcc2da113fdabe315 # Mediawiki 1.35.1
+
