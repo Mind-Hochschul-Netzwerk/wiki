@@ -33,4 +33,4 @@ adminer: .env check-traefik
 	docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up -d wiki-adminer
 
 database: .env
-	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d wiki-database
+	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d wiki-database --force-recreate
