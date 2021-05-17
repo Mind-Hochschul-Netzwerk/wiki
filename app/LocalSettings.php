@@ -188,6 +188,9 @@ $wgGroupPermissions['user']['createpage'] = false;
 $wgGroupPermissions['user']['createtalk'] = false;
 $wgGroupPermissions['user']['read'] = true;
 
+$wgGroupPermissions['sysop']['edit'] = true;
+$wgGroupPermissions['sysop']['createpage'] = true;
+
 $wgWhitelistAccount = array ( "sysop" => 1 );
 
 /*******************************************************************************
