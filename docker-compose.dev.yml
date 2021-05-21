@@ -14,8 +14,6 @@ services:
       - traefik.docker.network=traefik
       - traefik.http.routers.wiki-adminer.entrypoints=websecure
       - traefik.http.routers.wiki-adminer.rule=Host(`wiki-adminer.${DOMAINNAME}`)
-      - traefik.http.routers.wiki-adminer.tls=true
-      - traefik.http.routers.wiki-adminer.tls.certresolver=myresolver
       - traefik.http.routers.wiki-adminer.middlewares=secheader@file
     depends_on:
       - wiki-database
