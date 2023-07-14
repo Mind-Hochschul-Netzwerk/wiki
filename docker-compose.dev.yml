@@ -3,5 +3,5 @@ services:
   wiki:
     volumes:
       - "${VOLUMES_DIR}/images:/var/www/html/images"
-      - "./app/loginGateKeeper.php:/var/www/html/loginGateKeeper.php"
-      - "./app/LocalSettings.php:/var/www/html/LocalSettings.php"
+      - "./app/html/loginGateKeeper.php:/var/www/html/loginGateKeeper.php"
+      - "./app/html/LocalSettings.php:/var/www/html/LocalSettings.php"
