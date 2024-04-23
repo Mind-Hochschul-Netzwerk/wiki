@@ -7,7 +7,7 @@ services:
       - "${VOLUMES_DIR}/images:/var/www/html/images"
     environment:
       - DOMAINNAME
-      - MYSQL_HOST=${SERVICENAME}-database
+      - MYSQL_HOST=db
       - MYSQL_USER=user
       - MYSQL_PASSWORD
       - MYSQL_DATABASE=database
