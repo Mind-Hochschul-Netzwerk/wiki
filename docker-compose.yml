@@ -30,6 +30,7 @@ services:
     networks:
       - traefik
       - ldap
+      - default
 
   db:
     image: mariadb
@@ -56,6 +57,7 @@ services:
       - db
     networks:
       - traefik
+      - default
 
 networks:
   traefik:
