@@ -1,4 +1,4 @@
-FROM trafex/php-nginx:3.1.0
+FROM trafex/php-nginx:3.5.0
 
 LABEL Maintainer="Henrik Gebauer <code@henrik-gebauer.de>" \
       Description="mind-hochschul-netzwerk.de"
@@ -7,16 +7,21 @@ HEALTHCHECK --interval=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-pi
 
 USER root
 
-RUN apk --no-cache add \
-    php81-ldap \
-    php81-zip \
-    php81-pdo_mysql \
-    php81-iconv \
-    php81-simplexml \
-    php81-tokenizer \
-    php81-soap \
-    php81-fileinfo \
-    php81-pdo \
+# workaround for iconv issue
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv==1.15-r3
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
+RUN set -ex \
+  && apk --no-cache add \
+    php83-ldap \
+    php83-zip \
+    php83-pdo_mysql \
+    php83-iconv \
+    php83-simplexml \
+    php83-tokenizer \
+    php83-soap \
+    php83-fileinfo \
+    php83-pdo \
     imagemagick \
   && chown nobody:nobody /var/www
 
