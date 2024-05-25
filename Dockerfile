@@ -7,10 +7,15 @@ HEALTHCHECK --interval=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-pi
 
 USER root
 
+# apply (security) updates
+RUN set -x \
+  && apk upgrade --no-cache
+
 # workaround for iconv issue
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ gnu-libiconv==1.15-r3
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
+# install packages
 RUN set -ex \
   && apk --no-cache add \
     php83-ldap \

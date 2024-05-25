@@ -1,6 +1,6 @@
 services:
   app:
-    image: local/${SERVICENAME}
+    image: ghcr.io/mind-hochschul-netzwerk/${SERVICENAME}
     restart: unless-stopped
     container_name: ${SERVICENAME}
     volumes:
