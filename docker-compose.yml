@@ -22,9 +22,6 @@ services:
       - SECRET_KEY
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik
-      - traefik.http.routers.${SERVICENAME}.entrypoints=websecure
-      - traefik.http.routers.${SERVICENAME}.rule=Host(`${SERVICENAME}.${DOMAINNAME}`)
       - traefik.http.routers.${SERVICENAME}.middlewares=secheader@file
       - com.centurylinklabs.watchtower.enable=false
     depends_on:
@@ -52,9 +49,6 @@ services:
     container_name: ${SERVICENAME}-adminer
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik
-      - traefik.http.routers.${SERVICENAME}-adminer.entrypoints=websecure
-      - traefik.http.routers.${SERVICENAME}-adminer.rule=Host(`${SERVICENAME}-adminer.${DOMAINNAME}`)
     depends_on:
       - db
     networks:
